@@ -17,6 +17,9 @@ long timeStartSignal, timeEndSignal;
 #define NRF_CSN A5
 
 #define NRF_CHANEL 42
+// const uint64_t pipes[] = {0xF0F1F2F3F4L, };
+byte addresses[][6] = {"ping","back"};
+
 
 RF24 radio(NRF_CE, NRF_CSN);
 float sound_const = 58.0;
@@ -31,6 +34,9 @@ struct Radio_msg
 
 void send_nrf(int base_id, float sc)
 {
+    radio.stopListening();  
+
+    // radio.startFastWrite
     Radio_msg msg;
     msg.base_id = base_id;
     msg.sound_const = sc;
@@ -44,7 +50,9 @@ void setup_nrf()
     radio.setChannel(NRF_CHANEL);
     radio.setDataRate(RF24_1MBPS); 
     radio.setPALevel(RF24_PA_HIGH); 
-
+    radio.openWritingPipe(addresses[0]);
+    radio.openReadingPipe(1, addresses[1]);
+    
 }
 
 void send_us(int pin)

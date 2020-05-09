@@ -77,6 +77,7 @@ void setup()
     pinMode(SENDING_PIN, OUTPUT);
     pinMode(ECHO1_PIN, INPUT);
     Serial.begin(115200);
+    setup_nrf();
 }
 
 void loop()

@@ -105,6 +105,7 @@ void loop()
     send_us(TRIG4_PIN);
     
     delay(DELAY_SENDING);
+    // Serial
     // Serial.println(String(len2) + " " + String(len3));
 
     // put your main code here, to run repeatedly:

@@ -8,6 +8,7 @@
 #define NRF_CHANEL 42
 #define ECHO1_PIN 2
 #define SENDING_PIN 3
+#define DELAY_SENDING 40
 struct Radio_msg
 {
     int base_id;
@@ -46,12 +47,15 @@ void us_echo(int base_id)
     while (digitalRead(ECHO1_PIN) == LOW)
         ;
     timeStartSignal = micros();
-    while (digitalRead(ECHO1_PIN) == HIGH)
-        ;
+    timeEndSignal = micros();
+    while ((digitalRead(ECHO1_PIN) == HIGH) && ((timeEndSignal - timeStartSignal) < (1000 * (DELAY_SENDING - 2))))
+    {
+        timeEndSignal = micros();
+    }
     timeEndSignal = micros();
 
     // float len2 = pulseIn(ECHO1_PIN, HIGH) / 58;
-    dist_to_base[base_id-1] = ((timeEndSignal - timeStartSignal) / last_msg.sound_const) * 20.00;
+    dist_to_base[base_id - 1] = ((timeEndSignal - timeStartSignal) / last_msg.sound_const) * 20.00;
 }
 
 void setup()

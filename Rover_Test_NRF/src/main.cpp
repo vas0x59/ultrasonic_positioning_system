@@ -6,7 +6,8 @@
 #define NRF_CSN A5
 
 #define NRF_CHANEL 42
-
+#define ECHO1_PIN 2
+#define SENDING_PIN 3
 struct Radio_msg
 {
     int base_id;
@@ -20,6 +21,7 @@ byte addresses[][6] = {"ping", "back"};
 RF24 radio(NRF_CE, NRF_CSN);
 
 float dist_to_base[4] = {0, 0, 0, 0};
+long timeStartSignal, timeEndSignal;
 
 void setup_nrf()
 {
@@ -35,6 +37,21 @@ void setup_nrf()
 
 void us_echo(int base_id)
 {
+    digitalWrite(SENDING_PIN, LOW);
+    delayMicroseconds(2);
+    digitalWrite(SENDING_PIN, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(SENDING_PIN, LOW);
+
+    while (digitalRead(ECHO1_PIN) == LOW)
+        ;
+    timeStartSignal = micros();
+    while (digitalRead(ECHO1_PIN) == HIGH)
+        ;
+    timeEndSignal = micros();
+
+    // float len2 = pulseIn(ECHO1_PIN, HIGH) / 58;
+    dist_to_base[base_id-1] = ((timeEndSignal - timeStartSignal) / last_msg.sound_const) * 20.00;
 }
 
 void setup()

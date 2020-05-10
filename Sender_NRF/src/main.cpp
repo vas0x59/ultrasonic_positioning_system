@@ -10,7 +10,7 @@
 #define SENDING_PIN 13
 
 #define DELAY_SENDING 40
-#define DELAY_FLIGHT 1
+#define DELAY_FLIGHT 0
 long timeStartSignal, timeEndSignal;
 
 #define NRF_CE A4

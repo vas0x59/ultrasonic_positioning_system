@@ -41,7 +41,7 @@ void send_nrf(int base_id, float sc)
     msg.base_id = base_id;
     msg.sound_const = sc;
     msg.time_stamp = millis();
-    radio.write(&msg, sizeof(msg));
+    radio.write(&msg, sizeof(Radio_msg));
 }
 void setup_nrf()
 {

@@ -58,7 +58,7 @@ void us_echo(int base_id)
     timeEndSignal = micros();
 
     // float len2 = pulseIn(ECHO1_PIN, HIGH) / 58;
-    dist_to_base[base_id - 1] = ((timeEndSignal - timeStartSignal) / last_msg.sound_const) * 20.00;
+    dist_to_base[base_id] = ((timeEndSignal - timeStartSignal) / last_msg.sound_const) * 20.00;
 }
 unsigned long last_debug_t;
 void setup()

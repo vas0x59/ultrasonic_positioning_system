@@ -82,25 +82,25 @@ void setup()
 
 void loop()
 {
-    send_nrf(1, sound_const);
+    send_nrf(0, sound_const);
     delay(DELAY_FLIGHT);
     send_us(TRIG1_PIN);
     
     delay(DELAY_SENDING);
 
-    send_nrf(2, sound_const);
+    send_nrf(1, sound_const);
     delay(DELAY_FLIGHT);
     send_us(TRIG2_PIN);
     
     delay(DELAY_SENDING);
 
-    send_nrf(3, sound_const);
+    send_nrf(2, sound_const);
     delay(DELAY_FLIGHT);
     send_us(TRIG3_PIN);
     
     delay(DELAY_SENDING);
 
-    send_nrf(4, sound_const);
+    send_nrf(3, sound_const);
     delay(DELAY_FLIGHT);
     send_us(TRIG4_PIN);
     

@@ -10,7 +10,7 @@
 #define SENDING_PIN 13
 
 #define DELAY_SENDING 40
-
+#define DELAY_FLIGHT 1
 long timeStartSignal, timeEndSignal;
 
 #define NRF_CE A4
@@ -82,17 +82,28 @@ void setup()
 
 void loop()
 {
-    send_us(TRIG1_PIN);
     send_nrf(1, sound_const);
+    delay(DELAY_FLIGHT);
+    send_us(TRIG1_PIN);
+    
     delay(DELAY_SENDING);
-    send_us(TRIG2_PIN);
+
     send_nrf(2, sound_const);
+    delay(DELAY_FLIGHT);
+    send_us(TRIG2_PIN);
+    
     delay(DELAY_SENDING);
-    send_us(TRIG3_PIN);
+
     send_nrf(3, sound_const);
+    delay(DELAY_FLIGHT);
+    send_us(TRIG3_PIN);
+    
     delay(DELAY_SENDING);
-    send_us(TRIG4_PIN);
+
     send_nrf(4, sound_const);
+    delay(DELAY_FLIGHT);
+    send_us(TRIG4_PIN);
+    
     delay(DELAY_SENDING);
     // Serial.println(String(len2) + " " + String(len3));
 

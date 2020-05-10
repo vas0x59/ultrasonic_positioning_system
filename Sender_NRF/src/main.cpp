@@ -9,12 +9,12 @@
 #define ECHO1_PIN 2
 #define SENDING_PIN 13
 
-#define DELAY_SENDING 40
-#define DELAY_FLIGHT 0
+#define DELAY_SENDING 50
+#define DELAY_FLIGHT 10
 long timeStartSignal, timeEndSignal;
 
-#define NRF_CE A4
-#define NRF_CSN A5
+#define NRF_CE A5
+#define NRF_CSN A4
 
 #define NRF_CHANEL 42
 // const uint64_t pipes[] = {0xF0F1F2F3F4L, };
@@ -45,13 +45,17 @@ void send_nrf(int base_id, float sc)
 }
 void setup_nrf()
 {
+    Serial.println("SETUP NRF START");
     radio.begin();
     delay(2);
     radio.setChannel(NRF_CHANEL);
-    radio.setDataRate(RF24_1MBPS); 
+    radio.setDataRate(RF24_2MBPS); 
     radio.setPALevel(RF24_PA_HIGH); 
     radio.openWritingPipe(addresses[0]);
     radio.openReadingPipe(1, addresses[1]);
+    Serial.println("SETUP NRF END");
+
+
     
 }
 
@@ -65,6 +69,7 @@ void send_us(int pin)
     delayMicroseconds(10);
     digitalWrite(SENDING_PIN, LOW);
     digitalWrite(pin, LOW);
+    Serial.println("Send US");
 }
 
 void setup()

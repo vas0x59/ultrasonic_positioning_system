@@ -9,6 +9,9 @@
 #define ECHO1_PIN 2
 #define SENDING_PIN 3
 #define DELAY_SENDING 40
+
+#define DEBUG_FREQ 3.0
+
 struct Radio_msg
 {
     int base_id;
@@ -57,12 +60,16 @@ void us_echo(int base_id)
     // float len2 = pulseIn(ECHO1_PIN, HIGH) / 58;
     dist_to_base[base_id - 1] = ((timeEndSignal - timeStartSignal) / last_msg.sound_const) * 20.00;
 }
-
+unsigned long last_debug_t;
 void setup()
 {
     setup_nrf();
     // put your setup code here, to run once:
+    last_debug_t = millis();
+    Serial.begin(115200);
 }
+
+
 
 void loop()
 {
@@ -70,6 +77,16 @@ void loop()
     {
         radio.read(&last_msg, sizeof(Radio_msg));
         us_echo(last_msg.base_id);
+    }
+    if ((millis() - last_debug_t) >= (1000.0 / DEBUG_FREQ)) {
+        for (int i = 0; i < 4; i++)
+        {
+            Serial.print(" len");
+            Serial.print(i+1);
+            Serial.print(": ");
+            Serial.print(dist_to_base[i]);
+        }
+        Serial.println();
     }
     // put your main code here, to run repeatedly:
 }
